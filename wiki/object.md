@@ -1,6 +1,6 @@
 ## Object
 
-In Aliyun OSS, the basic data unit that user operation is the Object. A single Object maximum size varies according to the way of uploading data, Put the Object way most can't more than 5 GB, using multipart Object way to upload size must not exceed 48.8 TB. Object contains the key, meta, and data. Among them, the key is the name of the Object. Meta is user's description of the object consists of a series of name-value pairs; The data is the object data.
+In ZAliyun OSS, the basic data unit that user operation is the Object. A single Object maximum size varies according to the way of uploading data, Put the Object way most can't more than 5 GB, using multipart Object way to upload size must not exceed 48.8 TB. Object contains the key, meta, and data. Among them, the key is the name of the Object. Meta is user's description of the object consists of a series of name-value pairs; The data is the object data.
 
 
 ## Name Spec
@@ -22,7 +22,7 @@ Client#bucket_create_object support file or bin data to upload.
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     file = File.new("path/to/image.png")
     res = client.bucket_create_object("image.png", file, { 'Content-Type' => 'image/png' })
@@ -44,7 +44,7 @@ To Create a folder, it's easy, just pass key with "/" at last:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_create_object("images/", "")
     puts res.success?, res.headers
@@ -61,13 +61,13 @@ OSS allow users to customize the http headers of object. The following code set 
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     file = File.new("path/to/image.png")
     res = client.bucket_create_object("image.png", file, { 'Content-Type' => 'image/png', "Expires" => "Sun, 25 Oct 2015 05:38:42 GMT" })
     puts res.success?, res.headers
  
-Except Expires, it also support Cache-Control, Content-Disposition, Content-Encoding, Content-MD5, more details visit: [Client#bucket_create_object](http://www.rubydoc.info/gems/aliyun-oss-sdk/Aliyun%2FOss%2FClient%3Abucket_create_object).
+Except Expires, it also support Cache-Control, Content-Disposition, Content-Encoding, Content-MD5, more details visit: [Client#bucket_create_object](http://www.rubydoc.info/gems/aliyun-oss-sdk/ZAliyun%2FOss%2FClient%3Abucket_create_object).
 
 
 ### Set User Meta
@@ -79,7 +79,7 @@ OSS Support set some user meta information for object. Here we set x-oss-meta-us
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     file = File.new("path/to/image.png")
     res = client.bucket_create_object("image.png", file, { 'Content-Type' => 'image/png', 'x-oss-meta-user' => 'baymax' })
@@ -101,7 +101,7 @@ OSS Allow users to append data to a object, but only for appendable object, Obje
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # Step-1 create a appendable object
     position = 0
@@ -114,9 +114,9 @@ OSS Allow users to append data to a object, but only for appendable object, Obje
     res = client.bucket_append_object("secret.zip", "append information", position)
     puts res.success?, res.headers
     
-Users upload with Append mode, the most important is to set position correctly. When a user creates an Appendable Object, additional position to 0. When the Append additional content for Object, the postion is the current length of the object. There are two ways to get the Object length: one is through response after the append upload. Another is fetch with [Client#bucket_get_meta_object(http://www.rubydoc.info/gems/aliyun-oss-sdk/Aliyun/Oss/Client#bucket_get_meta_object-instance_method). the next position information is stored with key --- x-oss-next-append in headers.
+Users upload with Append mode, the most important is to set position correctly. When a user creates an Appendable Object, additional position to 0. When the Append additional content for Object, the postion is the current length of the object. There are two ways to get the Object length: one is through response after the append upload. Another is fetch with [Client#bucket_get_meta_object(http://www.rubydoc.info/gems/aliyun-oss-sdk/ZAliyun/Oss/Client#bucket_get_meta_object-instance_method). the next position information is stored with key --- x-oss-next-append in headers.
 
-Note: You can set meta information only when create appendable object(the first append). Later, if you want to change the meta, use [Client#bucket_copy_object](http://www.rubydoc.info/gems/aliyun-oss-sdk/Aliyun%2FOss%2FClient%3Abucket_copy_object) -- set source and destination for the same Object.
+Note: You can set meta information only when create appendable object(the first append). Later, if you want to change the meta, use [Client#bucket_copy_object](http://www.rubydoc.info/gems/aliyun-oss-sdk/ZAliyun%2FOss%2FClient%3Abucket_copy_object) -- set source and destination for the same Object.
 
 
 
@@ -130,7 +130,7 @@ Note: You can set meta information only when create appendable object(the first 
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_list_objects
     puts res.success?, res.parsed_response
@@ -145,13 +145,13 @@ the method support many Parameters to get flexible results:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # list objects with prefix: pic and end with "/"
     res = client.bucket_list_objects(prefix: 'pic', delimiter: '/')
     puts res.success?, res.parsed_response
 
-It list results with prefix: pic and end with "/", for example: "pic-people/". More about the Paramters, visit: [Client#bucket_list_objects](http://www.rubydoc.info/gems/aliyun-oss-sdk/Aliyun%2FOss%2FClient%3Abucket_list_objects)
+It list results with prefix: pic and end with "/", for example: "pic-people/". More about the Paramters, visit: [Client#bucket_list_objects](http://www.rubydoc.info/gems/aliyun-oss-sdk/ZAliyun%2FOss%2FClient%3Abucket_list_objects)
 
 
 ### Get Object
@@ -161,7 +161,7 @@ It list results with prefix: pic and end with "/", for example: "pic-people/". M
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_get_object('image.png')
     puts res.success?, res.parsed_response
@@ -178,7 +178,7 @@ To get meta information of a object, use Client#get_meta_object:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_get_meta_object('image.png')
     puts res.success?, res.headers
@@ -191,7 +191,7 @@ To get meta information of a object, use Client#get_meta_object:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # Delete one object
     res = client.bucket_delete_object('image.png')
@@ -214,7 +214,7 @@ With Client#bucket_copy_object, we can copy objects from some bucket to others.
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_copy_object('new_image.png', 'origin-bucket-name', 'origin.png')
     puts res.success?, res.headers
@@ -233,7 +233,7 @@ With Copy object, specify the source object and target object to the same one, w
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     headers = { "Content-Type" => "image/japeg" }
     res = client.bucket_copy_object('image.png', 'bucket-name', 'image.png', headers)

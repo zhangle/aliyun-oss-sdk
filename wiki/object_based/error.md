@@ -6,11 +6,11 @@ If a error occurs when visit the OSS, the OSS will be return a error code and er
 
     require 'aliyun/oss'
     
-    client = Aliyun::Oss::Client.new('ACCESS_KEY', 'SECRET_KEY', host: 'oss-cn-hangzhou.aliyuncs.com', bucket: 'oss-sdk-dev-hangzhou')
+    client = ZAliyun::Oss::Client.new('ACCESS_KEY', 'SECRET_KEY', host: 'oss-cn-hangzhou.aliyuncs.com', bucket: 'oss-sdk-dev-hangzhou')
     
     begin
       client.buckets.create("invalid_bucket_name")
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Code: #{e.code}"
       puts "Message: #{e.message}"
       puts "Request id: #{e.request_id}"

@@ -13,17 +13,17 @@ With Bucket#enable_cors, you can set cors easily:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
-      bucket = Aliyun::Oss::Struct::Bucket.new(client: client)
-      rule = Aliyun::Oss::Struct::Cors.new(allowed_methods: ['get'], allowed_origins: ['*'])
+      bucket = ZAliyun::Oss::Struct::Bucket.new(client: client)
+      rule = ZAliyun::Oss::Struct::Cors.new(allowed_methods: ['get'], allowed_origins: ['*'])
 	  bucket.enable_cors([rule])
-	rescue Aliyun::Oss::RequestError => e
+	rescue ZAliyun::Oss::RequestError => e
       puts "Set CORS fail", e.code, e.message, e.request_id
     end
 
-More about the rules, visit [OSS API](https://docs.aliyun.com/#/pub/oss/api-reference/cors&PutBucketcors) and [Struct::Cors](http://www.rubydoc.info/gems/aliyun-oss-sdk/0.1.1/Aliyun/Oss/Struct/Cors)
+More about the rules, visit [OSS API](https://docs.aliyun.com/#/pub/oss/api-reference/cors&PutBucketcors) and [Struct::Cors](http://www.rubydoc.info/gems/aliyun-oss-sdk/0.1.1/ZAliyun/Oss/Struct/Cors)
 
 
 ### Get CORS Rules
@@ -36,12 +36,12 @@ To get current cors rules, you can use Client#bucket_get_cors:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
-      bucket = Aliyun::Oss::Struct::Bucket.new(client: client)
+      bucket = ZAliyun::Oss::Struct::Bucket.new(client: client)
 	  cors = bucket.cors!
-	rescue Aliyun::Oss::RequestError => e
+	rescue ZAliyun::Oss::RequestError => e
       puts "Get CORS fail", e.code, e.message, e.request_id
     end
 
@@ -55,13 +55,13 @@ If you want to diable CORS, just like below:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # create a private bucket on oss-cn-beijing
     begin
-      bucket = Aliyun::Oss::Struct::Bucket.new(client: client)
+      bucket = ZAliyun::Oss::Struct::Bucket.new(client: client)
 	  bucket.disable_cors
-	rescue Aliyun::Oss::RequestError => e
+	rescue ZAliyun::Oss::RequestError => e
       puts "Disable CORS fail", e.code, e.message, e.request_id
     end
     

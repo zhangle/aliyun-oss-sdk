@@ -21,13 +21,13 @@ Before start a Multipart Upload, we need first initialize a event:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
     # Step-1 Init a Multipart Upload
       multipart = client.bucket_multiparts.init("Exciting-Ruby.mp4", { 'Content-Type' => 'video/mp4' })
       puts "Upload ID: #{multipart.upload_id}"
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Init Multipart fail", e.code, e.message, e.request_id
     end
     
@@ -40,13 +40,13 @@ Upload ID is the UUID for the Multipart Upload Event, store it for use later.
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
       multipart = client.bucket_multiparts.init("Exciting-Ruby.mp4", { 'Content-Type' => 'video/mp4' })
       headers = multipart.upload("Exciting-Ruby.mp4", 1, file_or_bin)
       puts "etag: #{headers['etag']}"
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Upload to Multipart fail", e.code, e.message, e.request_id
     end
 
@@ -66,19 +66,19 @@ It can used to upload part to a object. Please note:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
-    part1 = Aliyun::Oss::Struct::Part.new({ number: 1, etag: 'etag1' })
-	part2 = Aliyun::Oss::Struct::Part.new({ number: 2, etag: 'etag2' })
-	part3 = Aliyun::Oss::Struct::Part.new({ number: 3, etag: 'etag3' })
+    part1 = ZAliyun::Oss::Struct::Part.new({ number: 1, etag: 'etag1' })
+	part2 = ZAliyun::Oss::Struct::Part.new({ number: 2, etag: 'etag2' })
+	part3 = ZAliyun::Oss::Struct::Part.new({ number: 3, etag: 'etag3' })
 	begin
 	  multipart.complete([part1, part2, part3])
-	rescue Aliyun::Oss::RequestError => e
+	rescue ZAliyun::Oss::RequestError => e
       puts "Complete Multipart fail", e.code, e.message, e.request_id
     end
 	
 
-Here, we create Aliyun::Oss::Struct::Part to build your part, use Part#valid? to valid the object.
+Here, we create ZAliyun::Oss::Struct::Part to build your part, use Part#valid? to valid the object.
 
 ### Abort Multipart Upload
 
@@ -89,11 +89,11 @@ If some Problem occurs, you may want to abort a Multipart Upload:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
       multipart.abort
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Upload to Multipart fail", e.code, e.message, e.request_id
     end
     
@@ -108,7 +108,7 @@ To get all Multipart Upload in this Bucket:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     multiparts = client.bucket_multiparts.list
 
@@ -124,7 +124,7 @@ Sometimes, you want to know which parts are uploaded.
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     parts = multipart.list_parts
 

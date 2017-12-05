@@ -15,12 +15,12 @@ Bucket is a namespace in OSS, as well as management entity for high functions su
     
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host)
     
     # create a private bucket on oss-cn-beijing
     begin
       client.buckets.create('new-bucket', 'oss-cn-beijing', 'private')
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Bucket create fail", e.code, e.message, e.request_id
     end
     
@@ -36,11 +36,11 @@ To get all buckets use Client#list_buckets:
     
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host)
     
     begin
       buckets = client.buckets.list
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "List Buckets fail", e.code, e.message, e.request_id
     end    
 
@@ -52,13 +52,13 @@ With Client#bucket_set_acl you can modify the ACL:
     
     access_key, secret_key = "your id", "your secret"
     host, bucket = "oss-cn-hangzhou.aliyuncs.com", "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
-    bucket = Aliyun::Oss::Struct::Bucket.new(client: client)
+    bucket = ZAliyun::Oss::Struct::Bucket.new(client: client)
     # supported value: public-read-write | public-read | private
     begin
       bucket.set_acl('public-read')
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Set ACL fail", e.code, e.message, e.request_id
     end  
 
@@ -73,12 +73,12 @@ To get current ACL of Bucket, use Client#bucket_get_acl:
     
     access_key, secret_key = "your id", "your secret"
     host, bucket = "oss-cn-hangzhou.aliyuncs.com", "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
-    bucket = Aliyun::Oss::Struct::Bucket.new(client: client)
+    bucket = ZAliyun::Oss::Struct::Bucket.new(client: client)
     begin
       acl = bucket.acl!
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Get ACL fail", e.code, e.message, e.request_id
     end    
     
@@ -90,16 +90,16 @@ Get bucket's data center location, use Client#bucket_get_location:
     
     access_key, secret_key = "your id", "your secret"
     host, bucket = "oss-cn-hangzhou.aliyuncs.com", "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
-    bucket = Aliyun::Oss::Struct::Bucket.new(client: client)
+    bucket = ZAliyun::Oss::Struct::Bucket.new(client: client)
     begin
       location = bucket.location!
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Get Location fail", e.code, e.message, e.request_id
     end 
 
-To get more bucket information, visit Bucket#xxx! methods [here](http://www.rubydoc.info/gems/aliyun-oss-sdk/0.1.1/Aliyun/Oss/Struct/Bucket).
+To get more bucket information, visit Bucket#xxx! methods [here](http://www.rubydoc.info/gems/aliyun-oss-sdk/0.1.1/ZAliyun/Oss/Struct/Bucket).
 
 
 ### Delete Bucket
@@ -110,11 +110,11 @@ If you do need one bucket, delete it with Client#bucket_delete:
     
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host)    
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host)    
     
     begin
       client.buckets.delete("deleted-bucket-name")
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Delete Bucket fail", e.code, e.message, e.request_id
     end
     

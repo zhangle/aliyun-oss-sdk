@@ -1,6 +1,6 @@
 ## Object
 
-In Aliyun OSS, the basic data unit that user operation is the Object. A single Object maximum size varies according to the way of uploading data, Put the Object way most can't more than 5 GB, using multipart Object way to upload size must not exceed 48.8 TB. Object contains the key, meta, and data. Among them, the key is the name of the Object. Meta is user's description of the object consists of a series of name-value pairs; The data is the object data.
+In ZAliyun OSS, the basic data unit that user operation is the Object. A single Object maximum size varies according to the way of uploading data, Put the Object way most can't more than 5 GB, using multipart Object way to upload size must not exceed 48.8 TB. Object contains the key, meta, and data. Among them, the key is the name of the Object. Meta is user's description of the object consists of a series of name-value pairs; The data is the object data.
 
 
 ## Name Spec
@@ -22,18 +22,18 @@ BucketObjects#create support file or bin data to upload.
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     file = File.new("path/to/image.png")
     begin
       client.bucket_objects.create("image.png", file, { 'Content-Type' => 'image/png' })
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Create Object fail", e.code, e.message, e.request_id
     end
     
     begin
       client.bucket_objects.create("hello.txt", "Hello World", { 'Content-Type' => 'text/plain' })
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Create Object fail", e.code, e.message, e.request_id
     end
     
@@ -50,11 +50,11 @@ To Create a folder, it's easy, just pass key end with "/":
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
       client.bucket_objects.create("images/", "")
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Create folder fail", e.code, e.message, e.request_id
     end
 
@@ -70,16 +70,16 @@ OSS allow users to customize the http headers of object. The following code set 
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     file = File.new("path/to/image.png")
     begin
       client.bucket_objects.create("image.png", file, { 'Content-Type' => 'image/png', "Expires" => "Sun, 25 Oct 2015 05:38:42 GMT" })
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Create Object fail", e.code, e.message, e.request_id
     end
      
-Except Expires, it also support Cache-Control, Content-Disposition, Content-Encoding, Content-MD5, more details visit: [BucketObjects#create](http://www.rubydoc.info/gems/aliyun-oss-sdk/0.1.1/Aliyun/Oss/Client/BucketObjects#create-instance_method).
+Except Expires, it also support Cache-Control, Content-Disposition, Content-Encoding, Content-MD5, more details visit: [BucketObjects#create](http://www.rubydoc.info/gems/aliyun-oss-sdk/0.1.1/ZAliyun/Oss/Client/BucketObjects#create-instance_method).
 
 
 ### Set User Meta
@@ -91,12 +91,12 @@ OSS Support set some user meta information for object. Here we set x-oss-meta-us
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     file = File.new("path/to/image.png")
     begin
       client.bucket_objects.create("image.png", file, { 'Content-Type' => 'image/png', 'x-oss-meta-user' => 'baymax' })
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Create Object fail", e.code, e.message, e.request_id
     end
 
@@ -116,7 +116,7 @@ OSS Allow users to append data to a object, but only for appendable object, Obje
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # Step-1 create a appendable object
     begin
@@ -126,7 +126,7 @@ OSS Allow users to append data to a object, but only for appendable object, Obje
       position = headers['x-oss-next-append-position']
       # Step-3 append upload
       client.bucket_objects.append("secret.zip", "append information", position)
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Append Object fail", e.code, e.message, e.request_id
     end
     
@@ -148,7 +148,7 @@ Note: You can set meta information only when create appendable object(the first 
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     objects = client.bucket_objects.list    
     
@@ -162,13 +162,13 @@ the method support many Parameters to get flexible results:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # list objects with prefix: pic and end with "/"
     objects = client.bucket_objects.list(prefix: 'pic', delimiter: '/')
     
 
-It list results with prefix: pic and end with "/", for example: "pic-people/". More about the Paramters, visit: [BucketObjects#list](http://www.rubydoc.info/gems/aliyun-oss-sdk/0.1.1/Aliyun/Oss/Client/BucketObjects#list-instance_method)
+It list results with prefix: pic and end with "/", for example: "pic-people/". More about the Paramters, visit: [BucketObjects#list](http://www.rubydoc.info/gems/aliyun-oss-sdk/0.1.1/ZAliyun/Oss/Client/BucketObjects#list-instance_method)
 
 
 ### Simulate Directory
@@ -199,13 +199,13 @@ So we can use this two paramters to list objects by directory.
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # list objects with prefix: fun/ and end with "/"
     results = client.bucket_objects.list(prefix: 'fun/', delimiter: '/')
     
     results.each do |object|
-      if object.is_a?(Aliyun::Oss::Struct::Directory)
+      if object.is_a?(ZAliyun::Oss::Struct::Directory)
         puts object.key
         sub_objects = object.list(delimiter: '/')
       else
@@ -213,7 +213,7 @@ So we can use this two paramters to list objects by directory.
       end
     end
     
-Note: the results maybe instance of Aliyun::Oss::Struct::File or Aliyun::Oss::Struct::Directory, they are both subclass of Aliyun::Oss::Struct::Object, but Directory has method: #list to list objects under it.     
+Note: the results maybe instance of ZAliyun::Oss::Struct::File or ZAliyun::Oss::Struct::Directory, they are both subclass of ZAliyun::Oss::Struct::Object, but Directory has method: #list to list objects under it.     
     
 
 ### Get Object
@@ -223,12 +223,12 @@ Note: the results maybe instance of Aliyun::Oss::Struct::File or Aliyun::Oss::St
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
       body = client.bucket_objects.get('image.png')
       File.open('image.png', 'wb') {|f| f.write body.read }
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Get Object fail", e.code, e.message, e.request_id
     end
         
@@ -244,11 +244,11 @@ To get meta information of a object, use Client#get_meta_object:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
       headers = client.bucket_objects.meta!('image.png')
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Get Object meta information fail", e.code, e.message, e.request_id
     end
 
@@ -259,12 +259,12 @@ To get meta information of a object, use Client#get_meta_object:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # Delete one object
     begin
       client.bucket_objects.delete('image.png')
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Delete Object fail", e.code, e.message, e.request_id
     end
     
@@ -273,7 +273,7 @@ To get meta information of a object, use Client#get_meta_object:
     # the second Paramter used to control the response information. Quiet or Verbose
     begin
       client.bucket_objects.delete_multiple(['image1.png', 'image2.png'], true)
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Delete Objects fail", e.code, e.message, e.request_id
     end
     
@@ -288,11 +288,11 @@ With BucketObjects#copy, we can copy objects from some bucket to others.
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
       client.bucket_objects.copy('new_image.png', 'origin-bucket-name', 'origin.png')
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Copy Objects fail", e.code, e.message, e.request_id
     end
     
@@ -310,12 +310,12 @@ With Copy object, specify the source object and target object to the same one, w
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
       headers = { "Content-Type" => "image/japeg" }
       client.bucket_objects.copy('image.png', 'bucket-name', 'image.png', headers)
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Copy Objects fail", e.code, e.message, e.request_id
     end
  

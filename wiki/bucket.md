@@ -15,7 +15,7 @@ Bucket is a namespace in OSS, as well as management entity for high functions su
     
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host)
     
     # create a private bucket on oss-cn-beijing
     res = client.bucket_create('new-bucket', 'oss-cn-beijing', 'private')
@@ -33,7 +33,7 @@ To get all buckets use Client#list_buckets:
     
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host)
     
     res = client.list_buckets
     puts res.success?, res.parsed_response
@@ -47,7 +47,7 @@ With Client#bucket_set_acl you can modify the ACL:
     
     access_key, secret_key = "your id", "your secret"
     host, bucket = "oss-cn-hangzhou.aliyuncs.com", "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # supported value: public-read-write | public-read | private
     res = client.bucket_set_acl("public-read")
@@ -64,7 +64,7 @@ To get current ACL of Bucket, use Client#bucket_get_acl:
     
     access_key, secret_key = "your id", "your secret"
     host, bucket = "oss-cn-hangzhou.aliyuncs.com", "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_get_acl
     puts res.success?, res.parsed_response
@@ -78,12 +78,12 @@ Get bucket's data center location, use Client#bucket_get_location:
     
     access_key, secret_key = "your id", "your secret"
     host, bucket = "oss-cn-hangzhou.aliyuncs.com", "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_get_location
     puts res.success?, res.parsed_response
 
-To get more bucket information, visit Client#bucket_get_xxx methods [here](http://www.rubydoc.info/gems/aliyun-oss-sdk/Aliyun/Oss/Client).
+To get more bucket information, visit Client#bucket_get_xxx methods [here](http://www.rubydoc.info/gems/aliyun-oss-sdk/ZAliyun/Oss/Client).
 
 
 ### Delete Bucket
@@ -94,7 +94,7 @@ If you do need one bucket, delete it with Client#bucket_delete:
     
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host)    
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host)    
     
     res = client.bucket_delete("deleted-bucket-name")
     puts res.success?, res.headers

@@ -22,10 +22,10 @@ Each rule contains:
 In our Library, to use Struct::LifeCycle to define a rule:
 
      # Define a rule to auto delete objects with prefix: logs-prod- after 7 days since last modified date
-    rule1 = Aliyun::Oss::Struct::LifeCycle.new({ prefix: 'logs-prod-', days: 7, enable: true })
+    rule1 = ZAliyun::Oss::Struct::LifeCycle.new({ prefix: 'logs-prod-', days: 7, enable: true })
 	
 	# Define a rule to auto delete objects with prefix: logs-dev- at Time.now + 24*60*60
-	rule2 = Aliyun::Oss::Struct::LifeCycle.new({ prefix: 'logs-dev', date: Time.now + 24*60*60, enable: true })
+	rule2 = ZAliyun::Oss::Struct::LifeCycle.new({ prefix: 'logs-dev', date: Time.now + 24*60*60, enable: true })
 	
 
 To set your LifeCycle with this rules:
@@ -35,12 +35,12 @@ To set your LifeCycle with this rules:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
-      bucket = Aliyun::Oss::Struct::Bucket.new(client: client)
+      bucket = ZAliyun::Oss::Struct::Bucket.new(client: client)
       bucket.enable_lifecycle([rule1, rule2])
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Enable Lifecycle fail", e.code, e.message, e.request_id    
     end
 
@@ -53,12 +53,12 @@ To get LifeCycle for bucket, use Client#bucket_get_lifecycle:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
-      bucket = Aliyun::Oss::Struct::Bucket.new(client: client)
+      bucket = ZAliyun::Oss::Struct::Bucket.new(client: client)
       bucket.lifecycle!
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Enable Lifecycle fail", e.code, e.message, e.request_id
     end
     
@@ -74,12 +74,12 @@ With Client#bucket_disable_lifecycle, you can disable LifeCycle:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     begin
-      bucket = Aliyun::Oss::Struct::Bucket.new(client: client)
+      bucket = ZAliyun::Oss::Struct::Bucket.new(client: client)
       bucket.disable_lifecycle
-    rescue Aliyun::Oss::RequestError => e
+    rescue ZAliyun::Oss::RequestError => e
       puts "Disable Lifecycle fail", e.code, e.message, e.request_id
     end
     

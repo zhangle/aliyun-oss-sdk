@@ -21,7 +21,7 @@ Before start a Multipart Upload, we need first initialize a event:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     # Step-1 Init a Multipart Upload
     res = client.bucket_init_multipart("Exciting-Ruby.mp4", { 'Content-Type' => 'video/mp4' })
@@ -40,7 +40,7 @@ Upload ID is the UUID for the Multipart Upload Event, store it for use later.
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_multipart_upload("Upload ID", "Exciting-Ruby.mp4", 1, file_or_bin)
     
@@ -66,15 +66,15 @@ It can used to upload part to a object. Please note:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
-    part1 = Aliyun::Oss::Struct::Part.new({ number: 1, etag: 'etag1' })
-	part2 = Aliyun::Oss::Struct::Part.new({ number: 2, etag: 'etag2' })
-	part3 = Aliyun::Oss::Struct::Part.new({ number: 3, etag: 'etag3' })
+    part1 = ZAliyun::Oss::Struct::Part.new({ number: 1, etag: 'etag1' })
+	part2 = ZAliyun::Oss::Struct::Part.new({ number: 2, etag: 'etag2' })
+	part3 = ZAliyun::Oss::Struct::Part.new({ number: 3, etag: 'etag3' })
 	res = client.bucket_complete_multipart("Upload ID", "Exciting-Ruby.mp4", [part1, part2, part3])
 	
 
-Here, we create Aliyun::Oss::Struct::Part to build your part, use Part#valid? to valid the object.
+Here, we create ZAliyun::Oss::Struct::Part to build your part, use Part#valid? to valid the object.
 
 ### Abort Multipart Upload
 
@@ -85,7 +85,7 @@ If some Problem occurs, you may want to abort a Multipart Upload:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_abort_multipart("Upload ID", "Exciting-Ruby.mp4")
     
@@ -100,7 +100,7 @@ To get all Multipart Upload in this Bucket:
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_list_multiparts
     puts res.success?, res.parsed_response
@@ -117,7 +117,7 @@ Sometimes, you want to know which parts are uploaded.
     access_key, secret_key = "your id", "your secret"
     host = "oss-cn-hangzhou.aliyuncs.com"
     bucket = "bucket-name"
-    client = Aliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
+    client = ZAliyun::Oss::Client.new(access_key, secret_key, host: host, bucket: bucket)
     
     res = client.bucket_list_parts("Upload ID")
     puts res.success?, res.parsed_response

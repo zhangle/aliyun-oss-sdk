@@ -1,4 +1,4 @@
-# Aliyun OSS SDK
+# ZAliyun OSS SDK
 
 [![Build Status](https://travis-ci.org/aliyun-beta/aliyun-oss-ruby-sdk.svg)](https://travis-ci.org/aliyun-beta/aliyun-oss-ruby-sdk)
 [![Coverage Status](https://coveralls.io/repos/aliyun-beta/aliyun-oss-ruby-sdk/badge.svg?branch=master&service=github)](https://coveralls.io/github/aliyun-beta/aliyun-oss-ruby-sdk?branch=master)
@@ -6,7 +6,7 @@
 -----
 
 
-It is a full-featured Ruby Library for Aliyun OSS API. We provide two ways to help you use the API: Function based and Object based. Besides, We try to keep things natural and reasonable, but there are always some leaky, welcome to give us advice and modification. Enjoy it!
+It is a full-featured Ruby Library for ZAliyun OSS API. We provide two ways to help you use the API: Function based and Object based. Besides, We try to keep things natural and reasonable, but there are always some leaky, welcome to give us advice and modification. Enjoy it!
 
 
 
@@ -14,11 +14,11 @@ It is a full-featured Ruby Library for Aliyun OSS API. We provide two ways to he
 
 It's a Ruby Gem, so you can install it like any Gem:
 
-    gem install aliyun-oss-sdk
+    gem install zaliyun-oss-sdk
 
 If you use Gemfile manage your Gems, Add below to your Gemfile.
 
-    gem "aliyun-oss-sdk", require: 'aliyun/oss'
+    gem "zaliyun-oss-sdk", require: 'zaliyun/oss'
 
 And run:
 
@@ -32,7 +32,7 @@ Here is original Restful API, It has the most detailed and authoritative explana
 
 Here is thr RDoc Document for this Library, use to find mostly usage for methods.
 
-+ [RDoc Document](http://www.rubydoc.info/gems/aliyun-oss-sdk/0.1.1)
++ [RDoc Document](http://www.rubydoc.info/gems/zaliyun-oss-sdk/0.1.1)
 
 
 Here are some more guides for help you. Welcome to advice.
@@ -65,14 +65,14 @@ Here are some more guides for help you. Welcome to advice.
 
 #### Function Based
 
-    require 'aliyun/oss'
+    require 'zaliyun/oss'
     
     # ACCESS_KEY/SECRET_KEY is your access credentials
     # host: your bucket's data center host, eg: oss-cn-hangzhou.aliyuncs.com
     # Details: https://docs.aliyun.com/#/pub/oss/product-documentation/domain-region#menu2
     # bucket: your bucket name
 	
-	client = Aliyun::Oss::Client.new('ACCESS_KEY', 'SECRET_KEY', host: 'oss-cn-hangzhou.aliyuncs.com', bucket: 'oss-sdk-dev-hangzhou')
+	client = ZAliyun::Oss::Client.new('ACCESS_KEY', 'SECRET_KEY', host: 'oss-cn-hangzhou.aliyuncs.com', bucket: 'oss-sdk-dev-hangzhou')
 	
 	
 	# Upload object
@@ -88,14 +88,14 @@ Here are some more guides for help you. Welcome to advice.
 
 #### Object Based
 
-    require 'aliyun/oss'
+    require 'zaliyun/oss'
     
     # ACCESS_KEY/SECRET_KEY is your access credentials
     # host: your bucket's data center host, eg: oss-cn-hangzhou.aliyuncs.com
     # Details: https://docs.aliyun.com/#/pub/oss/product-documentation/domain-region#menu2
     # bucket: your bucket name
 	
-	client = Aliyun::Oss::Client.new('ACCESS_KEY', 'SECRET_KEY', host: 'oss-cn-hangzhou.aliyuncs.com', bucket: 'oss-sdk-dev-hangzhou')
+	client = ZAliyun::Oss::Client.new('ACCESS_KEY', 'SECRET_KEY', host: 'oss-cn-hangzhou.aliyuncs.com', bucket: 'oss-sdk-dev-hangzhou')
 	
 	
 	# Upload object
@@ -112,15 +112,15 @@ Here are some more guides for help you. Welcome to advice.
 	buckets = client.buckets
 	bucket_objects = client.bucket_objects
 	bucket_multiparts = client.bucket_multiparts
-	bucket = client.buckets.list.first  || Aliyun::Oss::Struct::Bucket.new(name: bucket_name, client: client)
-	multipart = client.bucket_multiparts.list.first || Aliyun::Oss::Struct::Multipart.new(upload_id: upload_id, key: object_key, client: client)
-	bucket_object = client.bucket_objects.list.first || Aliyun::Oss::Struct::Object.new(key: object_key, client: client)
-	file = client.bucket_objects.list.select(&:file?).first || Aliyun::Oss::Struct::File.new(key: object_key, client: client)
-	directory = Client.bucket_objects.list.reject(&:file?) || Aliyun::Oss::Struct::Directory.new(key: object_key, client: client)
+	bucket = client.buckets.list.first  || ZAliyun::Oss::Struct::Bucket.new(name: bucket_name, client: client)
+	multipart = client.bucket_multiparts.list.first || ZAliyun::Oss::Struct::Multipart.new(upload_id: upload_id, key: object_key, client: client)
+	bucket_object = client.bucket_objects.list.first || ZAliyun::Oss::Struct::Object.new(key: object_key, client: client)
+	file = client.bucket_objects.list.select(&:file?).first || ZAliyun::Oss::Struct::File.new(key: object_key, client: client)
+	directory = Client.bucket_objects.list.reject(&:file?) || ZAliyun::Oss::Struct::Directory.new(key: object_key, client: client)
 
 ### Share your files
 
-Sometimes, you want to share some file from your private bucket with your friends , but you donot want to share your AccessKey, thus, Aliyun provide alternative way: [Put signature in URL](https://docs.aliyun.com/#/pub/oss/api-reference/access-control&signature-url)
+Sometimes, you want to share some file from your private bucket with your friends , but you donot want to share your AccessKey, thus, ZAliyun provide alternative way: [Put signature in URL](https://docs.aliyun.com/#/pub/oss/api-reference/access-control&signature-url)
 
 We provide a method to get share link for your object:
 
@@ -128,18 +128,18 @@ We provide a method to get share link for your object:
     share_link = client.bucket_get_object_share_link('object-key', 3600)
     
     # OR
-    file = Aliyun::Oss::Struct::File.new(key: 'object-key', client: client)
+    file = ZAliyun::Oss::Struct::File.new(key: 'object-key', client: client)
     share_link = file.share_link(3600)
 
 Besides, if you need more control for temporary signature:     
 
     # Return Singature string
-    Aliyun::Oss::Authorization.get_temporary_signature('SECRET_KEY', Time.now.to_i + 60*60, verb: 'GET', bucket: 'bucket-name', key: 'object-name')
+    ZAliyun::Oss::Authorization.get_temporary_signature('SECRET_KEY', Time.now.to_i + 60*60, verb: 'GET', bucket: 'bucket-name', key: 'object-name')
 
 
-### Directly POST file to Aliyun OSS
+### Directly POST file to ZAliyun OSS
 
-Sometime we may allow user directly upload image or file to Aliyun to improve the upload speed. thus you may need POST form: [Post Object](https://docs.aliyun.com/#/pub/oss/api-reference/object&PostObject)
+Sometime we may allow user directly upload image or file to ZAliyun to improve the upload speed. thus you may need POST form: [Post Object](https://docs.aliyun.com/#/pub/oss/api-reference/object&PostObject)
 
 With Post Form, we need Post Policy to restrict permissions, here we provide two methods that you may interesting:
 
@@ -159,17 +159,17 @@ We provide two type API: Function Based, Object Based. To help you find your nee
 
 Note: 
 
-+ All Function Based API are instance methods of `Aliyun::Oss::Client`
++ All Function Based API are instance methods of `ZAliyun::Oss::Client`
 + Object Based API belongs to some other class list below:
 
-  + Bucket: `Aliyun::Oss::Client::BucketsService`
-  + BucketObject: `Aliyun::Oss::Client::BucketObjectsService`
-  + BucketMultipart: `Aliyun::Oss::Client::BucketMultipartsService`
-  + Bucket: `Aliyun::Oss::Struct::Bucket`
-  + Multipart: `Aliyun::Oss::Struct::Multipart`
-  + Object: `Aliyun::Oss::Struct::Object`
-  + File: `Aliyun::Oss::Struct::File`
-  + Directory: `Aliyun::Oss::Strcut:Directory`
+  + Bucket: `ZAliyun::Oss::Client::BucketsService`
+  + BucketObject: `ZAliyun::Oss::Client::BucketObjectsService`
+  + BucketMultipart: `ZAliyun::Oss::Client::BucketMultipartsService`
+  + Bucket: `ZAliyun::Oss::Struct::Bucket`
+  + Multipart: `ZAliyun::Oss::Struct::Multipart`
+  + Object: `ZAliyun::Oss::Struct::Object`
+  + File: `ZAliyun::Oss::Struct::File`
+  + Directory: `ZAliyun::Oss::Strcut:Directory`
 
 
 #### Service
